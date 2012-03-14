@@ -1,0 +1,6 @@
+name: SimpleMessages
+description: Simple documentation
+version: ${project.version}
+author: James Richardson (grandwazir)
+website: https://github.com/grandwazir/SimpleMessages
+main: name.richardson.james.bukkit.simplemessages.SimpleMessages
