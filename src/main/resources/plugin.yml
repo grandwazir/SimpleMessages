@@ -1,6 +1,6 @@
 name: SimpleMessages
-description: Simple documentation
+description: Show players information from text files
 version: ${project.version}
 author: James Richardson (grandwazir)
-website: https://github.com/grandwazir/SimpleMessages
+website: ${project.url}
 main: name.richardson.james.bukkit.simplemessages.SimpleMessages
