@@ -27,14 +27,19 @@ import java.util.Map;
 
 import name.richardson.james.bukkit.simplemessages.commands.CommandListener;
 import name.richardson.james.bukkit.simplemessages.motd.LoginListener;
-import name.richardson.james.bukkit.utilities.internals.Logger;
-import name.richardson.james.bukkit.utilities.plugin.SimplePlugin;
+import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
 
-public class SimpleMessages extends SimplePlugin {
+public class SimpleMessages extends SkeletonPlugin {
 
   private final Map<String, Message> messages = new HashMap<String, Message>();
 
-  private SimpleMessagesConfiguration configuration;
+  public String getArtifactID() {
+    return "simple-messages";
+  }
+
+  public String getGroupID() {
+    return "name.richardson.james.bukkit";
+  }
 
   public Map<String, Message> getMessages() {
     return Collections.unmodifiableMap(this.messages);
@@ -55,28 +60,6 @@ public class SimpleMessages extends SimplePlugin {
     this.logger.info(this.getFormattedMessageCount(this.messages.size()));
   }
 
-  @Override
-  public void onEnable() {
-    this.logger.setPrefix("[SimpleMessages] ");
-
-    try {
-      this.loadConfiguration();
-      this.setResourceBundle();
-      this.loadMessages();
-      this.registerListeners();
-    } catch (final IOException exception) {
-      this.logger.severe(this.getMessage("unable-to-read-configuration"));
-      this.setEnabled(false);
-    } finally {
-      if (!this.isEnabled()) {
-        this.logger.severe(this.getMessage("panic"));
-        return;
-      }
-    }
-
-    this.logger.info(this.getSimpleFormattedMessage("plugin-enabled", this.getDescription().getFullName()));
-  }
-
   private String getFormattedMessageCount(final int count) {
     final Object[] arguments = { count };
     final double[] limits = { 0, 1, 2 };
@@ -84,14 +67,11 @@ public class SimpleMessages extends SimplePlugin {
     return this.getChoiceFormattedMessage("messages-loaded", arguments, formats, limits);
   }
 
-  private void loadConfiguration() throws IOException {
-    this.configuration = new SimpleMessagesConfiguration(this);
-    if (this.configuration.getDebugging()) {
-      Logger.setDebugging(this, true);
-    }
+  protected void loadConfiguration() throws IOException {
+    this.loadMessages();
   }
 
-  private void registerListeners() {
+  protected void registerListeners() {
     this.getServer().getPluginManager().registerEvents(new CommandListener(this), this);
     this.getServer().getPluginManager().registerEvents(new LoginListener(this), this);
   }
