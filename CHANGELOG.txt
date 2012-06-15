@@ -1,0 +1,11 @@
+Changelog for SimpleMessages (v1.0.2-SNAPSHOT)
+
+2012-06-15 22:10:18 +0100    added auto updater ability (James Richardson)
+
+v1.0.1
+2012-03-25 00:13:19 +0000    Build against the latest version of BukkitUtilities (James Richardson)
+
+v1.0.0
+2012-03-14 23:22:14 +0000    code clean up (James Richardson)
+2012-03-14 23:16:42 +0000    updated readme (James Richardson)
+2012-03-14 23:12:27 +0000    first commit (James Richardson)
