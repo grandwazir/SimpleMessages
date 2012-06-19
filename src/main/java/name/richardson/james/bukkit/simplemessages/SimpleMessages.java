@@ -71,7 +71,7 @@ public class SimpleMessages extends SkeletonPlugin {
     this.loadMessages();
   }
 
-  protected void registerListeners() {
+  protected void registerEvents() {
     this.getServer().getPluginManager().registerEvents(new CommandListener(this), this);
     this.getServer().getPluginManager().registerEvents(new LoginListener(this), this);
   }
