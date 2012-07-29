@@ -76,4 +76,8 @@ public class SimpleMessages extends SkeletonPlugin {
     this.getServer().getPluginManager().registerEvents(new LoginListener(this), this);
   }
 
+  protected void setupMetrics() throws IOException {
+    if (this.configuration.isCollectingStats()) new MetricsListener(this);
+  }
+  
 }
