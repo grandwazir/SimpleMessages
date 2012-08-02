@@ -1,5 +1,13 @@
-Changelog for SimpleMessages (v1.0.2-SNAPSHOT)
+Changelog for SimpleMessages (v1.1.2-SNAPSHOT)
 
+2012-07-29 17:45:14 +0100    implement metrics (James Richardson)
+2012-07-29 17:41:18 +0100    upgrade to latest BukkitUtilities (James Richardson)
+
+v1.1.1
+2012-06-19 22:16:14 +0100    fix not registering for events (James Richardson)
+
+v1.1.0
+2012-06-16 00:57:38 +0100    Ready to release (James Richardson)
 2012-06-15 22:10:18 +0100    added auto updater ability (James Richardson)
 
 v1.0.1
