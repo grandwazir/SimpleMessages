@@ -34,9 +34,10 @@ public class LoginListener implements Listener {
 
   public LoginListener(final SimpleMessages plugin) {
     this.messages = plugin.getMessages();
+    plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=true)
   public void onPlayerJoin(final PlayerJoinEvent event) {
     if (this.messages.containsKey("motd")) {
       this.messages.get("motd").sendMessage(event.getPlayer(), 1);

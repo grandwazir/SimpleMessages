@@ -32,11 +32,8 @@ import org.bukkit.util.ChatPaginator;
 import org.bukkit.util.ChatPaginator.ChatPage;
 
 import name.richardson.james.bukkit.utilities.formatters.ColourFormatter;
-import name.richardson.james.bukkit.utilities.internals.Logger;
 
 public class Message {
-
-  private static final Logger logger = new Logger(Message.class);
 
   private final List<String> lines = new ArrayList<String>();
   private final String name;
@@ -45,16 +42,12 @@ public class Message {
 
   public Message(final File file) throws IOException {
     this.name = file.getName().replaceAll(".txt", "");
-    logger.debug("Created message: " + file.getName());
-
     try {
       this.buffer = new BufferedReader(new FileReader(file));
       this.parseLines();
-
     } finally {
       this.buffer.close();
     }
-
   }
 
   public ChatPage getChatPage(final int page) {
@@ -70,7 +63,6 @@ public class Message {
   }
 
   public void sendMessage(final Player player, final int pageNumber) {
-    logger.debug("Sending message using lines from " + this.name);
     final ChatPage page = ChatPaginator.paginate(this.test, pageNumber);
     if (page.getTotalPages() > 1) {
       player.sendMessage(this.getPageHeader(this.name, page));

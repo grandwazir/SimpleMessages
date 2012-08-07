@@ -27,27 +27,20 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import name.richardson.james.bukkit.simplemessages.Message;
 import name.richardson.james.bukkit.simplemessages.SimpleMessages;
-import name.richardson.james.bukkit.utilities.internals.Logger;
 
 public class CommandListener implements Listener {
-
-  private final static Logger logger = new Logger(CommandListener.class);
 
   private final Map<String, Message> messages;
 
   public CommandListener(final SimpleMessages plugin) {
     this.messages = plugin.getMessages();
+    plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
-  @EventHandler(priority = EventPriority.NORMAL)
+  @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=true)
   public void onPlayerCommand(final PlayerCommandPreprocessEvent event) {
     final String command = event.getMessage();
-    if (event.isCancelled()) {
-      return;
-    }
-    logger.debug("Processing command: " + command);
     for (final String key : this.messages.keySet()) {
-      logger.debug(key);
       if (command.startsWith(key, 1)) {
         int pageNumber = 1;
         event.setCancelled(true);

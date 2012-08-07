@@ -27,9 +27,9 @@ import java.util.Map;
 
 import name.richardson.james.bukkit.simplemessages.commands.CommandListener;
 import name.richardson.james.bukkit.simplemessages.motd.LoginListener;
-import name.richardson.james.bukkit.utilities.plugin.SkeletonPlugin;
+import name.richardson.james.bukkit.utilities.plugin.AbstractPlugin;
 
-public class SimpleMessages extends SkeletonPlugin {
+public class SimpleMessages extends AbstractPlugin {
 
   private final Map<String, Message> messages = new HashMap<String, Message>();
 
@@ -45,39 +45,25 @@ public class SimpleMessages extends SkeletonPlugin {
     return Collections.unmodifiableMap(this.messages);
   }
 
-  public void loadMessages() {
+  public void loadMessages() throws IOException {
     final FilenameFilter filter = new MessageFileFilter();
     final File[] files = this.getDataFolder().listFiles(filter);
     for (final File file : files) {
       Message message;
-      try {
-        message = new Message(file);
-        this.messages.put(message.getName(), message);
-      } catch (final IOException e) {
-        this.logger.warning("Unable to read file!");
-      }
+      message = new Message(file);
+      this.messages.put(message.getName(), message);
     }
-    this.logger.info(this.getFormattedMessageCount(this.messages.size()));
-  }
-
-  private String getFormattedMessageCount(final int count) {
-    final Object[] arguments = { count };
-    final double[] limits = { 0, 1, 2 };
-    final String[] formats = { this.getMessage("no-messages"), this.getMessage("one-message"), this.getMessage("many-messages") };
-    return this.getChoiceFormattedMessage("messages-loaded", arguments, formats, limits);
   }
 
   protected void loadConfiguration() throws IOException {
+    super.loadConfiguration();
     this.loadMessages();
   }
 
-  protected void registerEvents() {
-    this.getServer().getPluginManager().registerEvents(new CommandListener(this), this);
-    this.getServer().getPluginManager().registerEvents(new LoginListener(this), this);
+  protected void registerListeners() {
+    new CommandListener(this);
+    new LoginListener(this);
   }
 
-  protected void setupMetrics() throws IOException {
-    if (this.configuration.isCollectingStats()) new MetricsListener(this);
-  }
   
 }
